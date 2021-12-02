@@ -22,3 +22,32 @@ var longestCommonPrefix = function (strs) {
 
   return ret;
 };
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function (strs) {
+  // divide and conquer
+  function lcp(l, r) {
+    if (l === r) return strs[l];
+
+    let mid = (l + r) >>> 1;
+    let lcpLeft = lcp(l, mid);
+    let lcpRight = lcp(mid + 1, r);
+
+    return commonPrefix(lcpLeft, lcpRight);
+  }
+
+  function commonPrefix(left, right) {
+    let min = Math.min(left.length, right.length);
+
+    for (let i = 0; i < min; i++) {
+      if (left[i] !== right[i]) return left.slice(0, i);
+    }
+
+    return left.slice(0, min);
+  }
+
+  return lcp(0, strs.length - 1);
+};
