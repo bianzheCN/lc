@@ -16,10 +16,12 @@ var romanToInt = function (s) {
   let ret = 0;
 
   for (let i = 0; i < s.length; i++) {
-    if (s[i + 1] && map[s[i]] < map[s[i + 1]]) {
-      ret -= map[s[i]];
+    const cur = s[i]
+    const next = s[i + 1]
+    if (s[i + 1] && map[cur] < map[next]) {
+      ret -= map[cur];
     } else {
-      ret += map[s[i]];
+      ret += map[cur];
     }
   }
 
