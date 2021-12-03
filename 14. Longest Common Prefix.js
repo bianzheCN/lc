@@ -51,3 +51,36 @@ var longestCommonPrefix = function (strs) {
 
   return lcp(0, strs.length - 1);
 };
+
+// Binary Search
+var longestCommonPrefix = function (strs) {
+  let minLen = Number.MAX_SAFE_INTEGER;
+
+  for (const str of strs) {
+    minLen = Math.min(minLen, str.length);
+  }
+
+  let low = 0;
+  let high = minLen - 1;
+
+  while (low <= high) {
+    let middle = (low + (high - low)) >>> 1;
+
+    if (isCommonPrefix(middle)) low = middle + 1;
+    else {
+      high = middle - 1;
+    }
+  }
+
+  function isCommonPrefix(len) {
+    const str1 = strs[0].slice(0, len);
+
+    for (let i = 1; i < strs.length; i++) {
+      if (!strs[i].startsWith(str1)) return false;
+    }
+
+    return true;
+  }
+
+  return strs[0].slice(0, (low + high) >>> 1);
+};
