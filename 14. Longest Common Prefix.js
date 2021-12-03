@@ -64,7 +64,7 @@ var longestCommonPrefix = function (strs) {
   let high = minLen - 1;
 
   while (low <= high) {
-    let middle = (low + (high - low)) >>> 1;
+    let middle = (low + high) >>> 1;
 
     if (isCommonPrefix(middle)) low = middle + 1;
     else {
@@ -73,7 +73,7 @@ var longestCommonPrefix = function (strs) {
   }
 
   function isCommonPrefix(len) {
-    const str1 = strs[0].slice(0, len);
+    const str1 = strs[0].slice(0, len + 1);
 
     for (let i = 1; i < strs.length; i++) {
       if (!strs[i].startsWith(str1)) return false;
@@ -82,5 +82,5 @@ var longestCommonPrefix = function (strs) {
     return true;
   }
 
-  return strs[0].slice(0, (low + high) >>> 1);
+  return strs[0].slice(0, low);
 };
