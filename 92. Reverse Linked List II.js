@@ -45,8 +45,6 @@ var reverseBetween = function (head, left, right) {
       prev = cur;
       cur = tmp;
     }
-
-    return prev;
   }
 
   pre.next = rightNode;
