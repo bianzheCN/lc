@@ -10,30 +10,44 @@
  * @param {number} k
  * @return {ListNode}
  */
-var rotateRight = function (head, k) {
+var reverseKGroup = function (head, k) {
   if (!head) return null;
-  if (!head.next) return head
+  const dummyHead = new ListNode(null, head);
+  let pre = dummyHead;
 
-  // 闭合为环
-  let cur = head;
-  let count = 2;
+  do {
+    pre.next = reverseList(pre.next, k);
 
-  while (cur.next) {
-    cur = cur.next;
-    count++;
+    for (let i = 0; i < k; i++) {
+      pre = pre && pre.next;
+    }
+
+    if (!pre) break;
+  } while (true);
+
+  function reverseList(head, k) {
+    let pre = head,
+      cur = head,
+      count = k;
+
+    // Check if remaining nodes serves k, including cur
+    while (--count) {
+      pre = pre && pre.next;
+    }
+    if (!pre) return head;
+
+    pre = null;
+    while (k--) {
+      const tmp = cur.next;
+
+      cur.next = pre;
+      pre = cur;
+      cur = tmp;
+    }
+    head.next = cur;
+
+    return pre;
   }
-  // close tail to head
-  cur.next = head;
 
-  cur = head;
-  // 1 2 3 4 5 6, k = 2
-  // 4 5 6 1 2 3
-
-  while (k--) {
-    cur = cur.next;
-  }
-  const ret = cur.next;
-  cur.next = cur.next.next;
-
-  return ret;
+  return dummyHead.next;
 };
