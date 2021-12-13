@@ -46,7 +46,7 @@ var deleteDuplicates = function (head) {
   const dummyHead = new ListNode(null, head);
   let cur = dummyHead;
 
-  while (cur && cur.next) {
+  while (cur.next) {
     if (cur.val === cur.next.val) {
       cur.next = cur.next.next;
     } else {
