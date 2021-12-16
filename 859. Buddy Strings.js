@@ -41,3 +41,26 @@ var buddyStrings = function (s, goal) {
   if (s[index1] === goal[index2] && s[index2] === goal[index1]) return true
   return false
 }
+
+/**
+ * @param {string} s
+ * @param {string} goal
+ * @return {boolean}
+ */
+var buddyStrings = function (s, goal) {
+  if (s.length !== goal.length) return false
+
+  // has at least one char that appears twice
+  if (s === goal) return s.length > new Set(goal).size
+
+  let a = ""
+  let b = ""
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] !== goal[i]) {
+      a = s[i] + a
+      b += goal[i]
+    }
+  }
+
+  return a.length === 2 && a === b
+}
