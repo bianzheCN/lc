@@ -27,3 +27,41 @@ var minRemoveToMakeValid = function (s) {
 
   return res.join("")
 }
+
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var minRemoveToMakeValid = function (s) {
+  let str = ""
+  let cnt = 0
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === "(") {
+      str += s[i]
+      cnt++
+    } else if (s[i] !== ")") {
+      str += s[i]
+    } else {
+      if (!cnt) continue
+      cnt--
+      str += s[i]
+    }
+  }
+
+  let ret = ""
+  let cnt2 = 0
+  for (let i = str.length - 1; i >= 0; i--) {
+    if (str[i] === ")") {
+      ret = ")" + ret
+      cnt2++
+    } else if (str[i] !== "(") {
+      ret = str[i] + ret
+    } else {
+      if (!cnt2) continue
+      cnt2--
+      ret = "(" + ret
+    }
+  }
+
+  return ret
+}
