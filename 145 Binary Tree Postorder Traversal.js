@@ -37,13 +37,13 @@ var postorderTraversal = function (root) {
   // Iteration
   const res = []
   const stack = [root]
-  if (!root) return stack
+  if (!root) return res
 
   while (stack.length) {
     root = stack.pop()
     res.unshift(root.val)
-    if (root.left) res.push(root.left)
-    if (root.right) res.push(root.right)
+    if (root.left) stack.push(root.left)
+    if (root.right) stack.push(root.right)
   }
 
   return res
