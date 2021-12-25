@@ -25,6 +25,7 @@ var detectCycle = function (head) {
         slow = slow.next
         fast = fast.next
       }
+
       return slow
     }
   }
