@@ -19,3 +19,7 @@
 - Header
 - Payload
 - Signature
+
+### Header
+
+JSON，描述 JWT 的元数据
