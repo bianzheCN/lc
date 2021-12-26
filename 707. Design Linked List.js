@@ -10,9 +10,9 @@ MyLinkedList.prototype.get = function (index) {
   if (index < 0) {
     return -1
   }
-
   let count = 0
   let cur = this.head
+  if (!cur) return -1
 
   while (index !== count) {
     cur = cur.next
@@ -20,8 +20,6 @@ MyLinkedList.prototype.get = function (index) {
 
     if (!cur) return -1
   }
-
-  if (index !== count || !cur) return -1
 
   return cur.val
 }
@@ -66,20 +64,19 @@ MyLinkedList.prototype.addAtIndex = function (index, val) {
     newNode.next = this.head
     this.head = newNode
   }
+  if (!this.head) return
 
   let count = 1
   let cur = this.head
   while (index !== count) {
     count++
 
-    if (!cur) return
     cur = cur.next
+    if (!cur) return
   }
 
-  if (cur) {
-    newNode.next = cur.next
-    cur.next = newNode
-  }
+  newNode.next = cur.next
+  cur.next = newNode
 }
 
 /**
