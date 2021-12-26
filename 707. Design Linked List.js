@@ -63,11 +63,13 @@ MyLinkedList.prototype.addAtIndex = function (index, val) {
   if (index <= 0) {
     newNode.next = this.head
     this.head = newNode
+
+    return
   }
-  if (!this.head) return
 
   let count = 1
   let cur = this.head
+  if (!this.head) return
   while (index !== count) {
     count++
 
