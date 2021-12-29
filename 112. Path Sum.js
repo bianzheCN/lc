@@ -12,6 +12,7 @@
  * @return {boolean}
  */
 var hasPathSum = function (root, targetSum) {
+  // deep first
   if (!root) return false
   if (!root.left && !root.right) return root.val === targetSum
 
