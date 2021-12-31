@@ -70,3 +70,39 @@ var widthOfBinaryTree = function (root) {
 
   return res
 }
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var widthOfBinaryTree = function (root) {
+  // way 1 的 `<< 1` 版本
+  if (!root) return 0
+
+  // 定义一个二维数组存储当前层的序号和节点
+  let max = 0,
+    q = [[0, root]]
+
+  while (q.length) {
+    let width = q[q.length - 1][0] - q[0][0] + 1
+    if (width > max) max = width
+    let temp = []
+
+    for (const [i, node] of q) {
+      node.left && temp.push([(i << 1) + 1, node.left])
+      node.right && temp.push([(i << 1) + 2, node.right])
+    }
+
+    q = temp
+  }
+
+  return max
+}
