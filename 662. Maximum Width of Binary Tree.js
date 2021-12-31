@@ -12,7 +12,7 @@
  */
 var widthOfBinaryTree = function (root) {
   // 给整棵树编号
-  // root 为 1，left 为 2，right 为 3
+  // root 为 0，left 为 0，right 为 1
   // root.left 的 index 为 root 的 index * 2，root.right 的 index 为 root 的 index * 2 + 1
   // 定义 max 为最大值来记录宽度最大值，每层序号相减完毕后，和 max 进行比较，取最大值
   // width = rIndex - lIndex + 1
@@ -99,6 +99,40 @@ var widthOfBinaryTree = function (root) {
     for (const [i, node] of q) {
       node.left && temp.push([(i << 1) + 1, node.left])
       node.right && temp.push([(i << 1) + 2, node.right])
+    }
+
+    q = temp
+  }
+
+  return max
+}
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var widthOfBinaryTree = function (root) {
+  if (!root) return 0
+
+  let q = [[0, root]],
+    max = 0
+
+  while (q.length) {
+    const temp = []
+    const length = q[q.length - 1][0] - q[0][0] + 1
+    max = Math.max(max, length)
+
+    for (const [index, node] of q) {
+      node.left && temp.push([(index << 1) + 1, node.left])
+      node.right && temp.push([(index << 1) + 2, node.right])
     }
 
     q = temp
