@@ -3,7 +3,7 @@
  * @return {number}
  */
 var findCircleNum = function (isConnected) {
-  const unionSet = new UnionSet22(isConnected.length)
+  const unionSet = new UnionSet(isConnected.length)
 
   for (let i = 0; i < isConnected.length; i++) {
     const arr = isConnected[i]
@@ -23,7 +23,7 @@ var findCircleNum = function (isConnected) {
   }, -1)
 }
 
-class UnionSet22 {
+class UnionSet {
   constructor(n) {
     this.n = n
     this.fa = []
