@@ -5,19 +5,17 @@
 var findRedundantConnection = function (edges) {
   const n = edges.length
   const u = new UnionSet(n)
-  let ret
+  let ans
 
   for (const item of edges) {
     const node1 = item[0]
     const node2 = item[1]
 
-    if (u.get(node1) === u.get(node2)) {
-      ret = item
-    }
+    if (u.get(node1) == u.get(node2)) return item
     u.merge(node1, node2)
   }
 
-  return ret
+  return ans
 }
 
 class UnionSet {
