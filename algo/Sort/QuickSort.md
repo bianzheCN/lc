@@ -1,3 +1,10 @@
+# QuickSort
+
+## Basic
+
+## Code
+
+```javascript
 function quickSort(arr = []) {
   if (arr.length <= 1) return arr;
 
@@ -17,3 +24,4 @@ function quickSort(arr = []) {
 
   return [...quickSort(leftArr), pivot, ...quickSort(rightArr)];
 }
+```
