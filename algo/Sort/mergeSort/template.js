@@ -18,7 +18,7 @@ function mergeSort(arr, l, r) {
 
   while (p1 <= mid || p2 <= r) {
     // right is empty or left is smaller
-    if (p2 > r || (p1 <= mid && arr[p1] < arr[p2])) {
+    if (p2 > r || (p1 <= mid && arr[p1] <= arr[p2])) {
       temp[k++] = arr[p1++]
     } else {
       temp[k++] = arr[p2++]
