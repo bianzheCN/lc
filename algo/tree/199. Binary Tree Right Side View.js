@@ -1,3 +1,4 @@
+// DFS
 /**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
@@ -39,6 +40,48 @@ var rightSideView = function (root) {
   const rightView = []
   for (let depth = 0; depth <= max_depth; depth++) {
     rightView.push(rightmostValueAtDepth[depth])
+  }
+
+  return rightView
+}
+
+// BFS
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function (root) {
+  const rightmostValueAtDepth = {}
+  const nodeQueue = [root]
+  const depthQueue = [0]
+  const rightView = []
+  let max_depth = -1
+
+  while (nodeQueue.length) {
+    const node = nodeQueue.shift()
+    const depth = depthQueue.shift()
+
+    if (node) {
+      max_depth = Math.max(max_depth, depth)
+      rightmostValueAtDepth[depth] = node.val
+
+      nodeQueue.push(node.left)
+      nodeQueue.push(node.right)
+      depthQueue.push(depth + 1)
+      depthQueue.push(depth + 1)
+    }
+  }
+
+  for (let i = 0; i <= max_depth; i++) {
+    rightView.push(rightmostValueAtDepth[i])
   }
 
   return rightView
