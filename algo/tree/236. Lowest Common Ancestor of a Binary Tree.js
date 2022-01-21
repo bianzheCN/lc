@@ -63,7 +63,5 @@ var lowestCommonAncestor = function (root, p, q) {
 
   // only one has result, meaning that p and q all locate at one side of tree
   // both undefined, meaning p and q are not locate at the tree, return null
-  if (!left) return right
-
-  return left
+  return l || r
 }
