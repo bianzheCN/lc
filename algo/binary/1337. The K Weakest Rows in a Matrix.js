@@ -1,32 +1,31 @@
-/**
- * @param {string} s
- * @return {string}
- */
-var frequencySort = function (s) {
-  const freq = {}
-  const h = new Heap((a, b) => freq[a] <= freq[b])
-  for (const x of s) {
-    if (freq[x]) {
-      freq[x]++
-    } else {
-      freq[x] = 1
+function kWeakestRows(mat, k) {
+  const m = mat.length,
+    n = mat[0].length
+  const q = new Heap((a, b) => {
+    if (!b) return false
+    if (a[0] !== b[0]) return a[0] < b[0]
+    return a[1] < b[1]
+  })
+  for (let i = 0; i < m; i++) {
+    let l = 0,
+      r = n - 1
+
+    while (l < r) {
+      let mid = (l + r + 1) >> 1
+      if (mat[i][mid] >= 1) l = mid
+      else r = mid - 1
     }
-  }
-  for (const x of Object.keys(freq)) {
-    h.insert(x)
-  }
 
-  let ret = ""
-  while (!h.isEmpty()) {
-    const c = h.extract()
-    let f = freq[c]
-
-    while (f--) {
-      ret += c
-    }
+    let cur = mat[i][r] >= 1 ? r + 1 : r
+    if (q.size() == k && q.top()[0] > cur) q.extract()
+    if (q.size() < k) q.insert([cur, i])
   }
 
-  return ret
+  const ans = []
+  let idx = k - 1
+  while (!q.isEmpty()) ans[idx--] = q.extract()[1]
+
+  return ans
 }
 
 class Heap {
