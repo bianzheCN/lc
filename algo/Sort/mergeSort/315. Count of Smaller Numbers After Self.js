@@ -24,9 +24,7 @@ function mergeSort(arr, l, r, ret) {
 
   while (p1 <= mid || p2 <= r) {
     if (p2 > r || (p1 <= mid && arr[p1].val > arr[p2].val)) {
-      if (p2 <= r) {
-        ret[arr[p1].index] += r - p2 + 1
-      }
+      ret[arr[p1].index] += r - p2 + 1
       temp[k++] = arr[p1++]
     } else {
       temp[k++] = arr[p2++]
