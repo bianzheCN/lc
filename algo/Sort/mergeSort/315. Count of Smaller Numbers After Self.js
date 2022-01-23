@@ -7,7 +7,6 @@ var countSmaller = function (nums) {
   for (let i = 0; i < nums.length; i++) {
     arr.push({ val: nums[i], index: i })
   }
-  console.log(arr)
   return mergeSort(arr, 0, arr.length - 1, new Array(arr.length).fill(0))
 }
 
