@@ -1,5 +1,12 @@
 # Basic
 
+## Why
+
+While the size, scope, and complexity of programs written in JavaScript has grown exponentially,
+the ability of JavaScript language to express the relationships between different units of code has not.
+
+Combined with JavaScript's peculiar runtime semantics, this mismatch between language and program complexity has made JavaScript development a difficult task to manage at scale
+
 ## Benefit
 
 The main benefit of TypeScript is that it can highlight unexpected behavior in your code, lowering the chance of bugs
