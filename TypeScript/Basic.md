@@ -30,8 +30,6 @@ This means that besides `boolean`, `bigint`, `null`, `number`, `string`, `symbol
 
 ### Composing Types
 
-#### Why
-
 To create complex types by combining simple ones. There are two ways: unions and generics
 
 #### Unions
