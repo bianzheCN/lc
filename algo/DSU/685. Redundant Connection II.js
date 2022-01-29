@@ -4,6 +4,7 @@ function findRedundantDirectedConnection(edges) {
     edgeMakesCycle = -1
   const parent = new Array(numNodes + 1).fill(0)
 
+  // two parent
   for (let i = 0; i < numNodes; i++) {
     const u = edges[i][0]
     const v = edges[i][1]
@@ -14,11 +15,13 @@ function findRedundantDirectedConnection(edges) {
     } else parent[v] = u
   }
 
+  // cycle
   const uf = new UnionFind(numNodes)
   for (let i = 0; i < numNodes; i++) {
     if (i == edgeRemoved) continue
     const u = edges[i][0]
     const v = edges[i][1]
+    // if the two nodes have the same parent, this edge is redundant
     if (!uf.union(u, v)) {
       edgeMakesCycle = i
       break
@@ -73,5 +76,61 @@ class UnionFind {
       rank[rootX] += rank[rootY]
     }
     return true
+  }
+}
+
+/**
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findRedundantDirectedConnection = function (edges) {
+  const n = edges.length
+  const dsu = new DSU(n + 1)
+  const parent = new Array(n + 1).fill(0)
+  let edgeToRemove, cycleToRemove
+
+  for (const x of edges) {
+    const u = x[0]
+    const v = x[1]
+
+    if (parent[v] !== 0) {
+      edgeToRemove = x
+      break
+    } else {
+      parent[v] = u
+    }
+  }
+
+  for (const x of edges) {
+    const u = x[0]
+    const v = x[1]
+
+    if (x === edgeToRemove) continue
+    if (dsu.get(u) === dsu.get(v)) {
+      cycleToRemove = x
+      break
+    }
+    {
+      dsu.merge(u, v)
+    }
+  }
+
+  if (!cycleToRemove) return edgeToRemove
+  if (!edgeToRemove) return cycleToRemove
+
+  return [parent[edgeToRemove[1]], edgeToRemove[1]]
+}
+
+class DSU {
+  constructor(n) {
+    this.fa = new Array(n + 1).fill(0).map((v, i) => i)
+  }
+
+  get(x) {
+    return (this.fa[x] = this.fa[x] === x ? x : this.get(this.fa[x]))
+  }
+
+  merge(a, b) {
+    this.fa[this.get(a)] = this.get(b)
   }
 }
