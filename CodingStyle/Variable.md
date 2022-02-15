@@ -2,4 +2,4 @@
 
 ## Naming
 
-Declarative
+Meaningful and declarative
