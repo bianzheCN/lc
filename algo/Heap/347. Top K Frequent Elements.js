@@ -1,0 +1,113 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number[]}
+ */
+var topKFrequent = function (nums, k) {
+  const map = new Map()
+  for (const x of nums) {
+    map.set(x, (map.get(x) || 0) + 1)
+  }
+  const h = new Heap((a, b) => {
+    if (b === undefined) return false
+    return map.get(a) < map.get(b)
+  })
+
+  for (const x of map.keys()) {
+    h.insert(x)
+  }
+
+  const ret = []
+  while (k--) {
+    ret.push(h.extract())
+  }
+
+  return ret
+}
+
+class Heap {
+  constructor(compareFn) {
+    this.compareFn = compareFn
+    this.heap = []
+  }
+
+  getLeftIndex(index) {
+    return index * 2 + 1
+  }
+
+  getRightIndex(index) {
+    return index * 2 + 2
+  }
+
+  getParentIndex(index) {
+    return Math.floor((index - 1) / 2)
+  }
+
+  size() {
+    return this.heap.length
+  }
+
+  isEmpty() {
+    return this.size() === 0
+  }
+
+  swap(parent, index) {
+    const arr = this.heap
+    ;[arr[parent], arr[index]] = [arr[index], arr[parent]]
+  }
+
+  insert(value) {
+    const index = this.heap.length
+    this.heap.push(value)
+    this.siftUp(index)
+  }
+
+  siftUp(index) {
+    let parent = this.getParentIndex(index)
+
+    while (index > 0 && this.compareFn(this.heap[parent], this.heap[index])) {
+      this.swap(parent, index)
+      index = parent
+      parent = this.getParentIndex(index)
+    }
+  }
+
+  extract() {
+    if (this.isEmpty()) return
+    if (this.size() === 1) return this.heap.pop()
+    const removedItem = this.heap[0]
+    this.heap[0] = this.heap.pop()
+    this.siftDown(0)
+
+    return removedItem
+  }
+
+  siftDown(index) {
+    let element = index
+    let left = this.getLeftIndex(index)
+    let right = this.getRightIndex(index)
+
+    if (
+      index < this.size() &&
+      this.compareFn(this.heap[element], this.heap[left])
+    ) {
+      element = left
+    }
+
+    if (
+      index < this.size() &&
+      this.compareFn(this.heap[element], this.heap[right])
+    ) {
+      element = right
+    }
+
+    if (index !== element) {
+      this.swap(element, index)
+      this.siftDown(element)
+    }
+  }
+
+  top() {
+    return this.heap[0]
+  }
+}
