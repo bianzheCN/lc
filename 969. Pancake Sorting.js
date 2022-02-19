@@ -58,17 +58,12 @@ var pancakeSort = function (arr) {
       }
     }
 
-    if (index === n - 1) {
-      continue
-    }
-
+    if (index === n - 1) continue
     if (index !== 0) {
       reverse(arr, index)
       ret.push(index + 1)
     }
-
     reverse(arr, n - 1)
-
     ret.push(n)
   }
   return ret
