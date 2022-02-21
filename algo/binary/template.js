@@ -3,7 +3,7 @@ function binarySearch(arr, n, x) {
     tail = n - 1,
     mid
   while (head <= tail) {
-    mid = (head + tail) >> 1
+    mid = (head + (tail - head)) >> 1
     if (arr[mid] === x) return mid
     if (arr[mid] < x) {
       head = mid + 1
