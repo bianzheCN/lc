@@ -17,6 +17,7 @@ var minOperations = function (nums, x) {
     return -1
   }
   let sumNums = 0
+
   while (right < n) {
     sumNums += nums[right]
     while (sumNums > count) {
@@ -28,8 +29,7 @@ var minOperations = function (nums, x) {
     }
     right++
   }
+
   if (maxLength === -1) return -1
-  else {
-    return n - maxLength
-  }
+  return n - maxLength
 }
