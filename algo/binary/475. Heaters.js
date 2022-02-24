@@ -1,8 +1,13 @@
 var findRadius = function (houses, heaters) {
   let ans = 0
+  // sort headters to be prepared for binary-search
   heaters.sort((a, b) => a - b)
+
+  
   for (const house of houses) {
+    // find the heater left to the house
     const i = binarySearch(heaters, house)
+    // right
     const j = i + 1
     const leftDistance = i < 0 ? Number.MAX_VALUE : house - heaters[i]
     const rightDistance =
@@ -10,6 +15,7 @@ var findRadius = function (houses, heaters) {
     const curDistance = Math.min(leftDistance, rightDistance)
     ans = Math.max(ans, curDistance)
   }
+
   return ans
 }
 
