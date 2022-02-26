@@ -28,3 +28,45 @@ function binarySearch(arr, target, lower) {
 
   return ans
 }
+
+// 三叶
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var searchRange = function (nums, target) {
+  const ret = [-1, -1],
+    n = nums.length
+  if (n === 0) return ret
+
+  let l = 0,
+    r = n - 1
+  while (l < r) {
+    const mid = (l + r) >> 1
+    if (nums[mid] >= target) {
+      r = mid
+    } else {
+      l = mid + 1
+    }
+  }
+
+  if (nums[r] !== target) {
+    return ret
+  } else {
+    ret[0] = r
+    ;(l = 0), (r = n - 1)
+    while (l < r) {
+      const mid = (l + r + 1) >> 1
+      if (nums[mid] <= target) {
+        l = mid
+      } else {
+        r = mid - 1
+      }
+    }
+
+    ret[1] = l
+  }
+
+  return ret
+}
