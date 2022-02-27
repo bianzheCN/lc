@@ -3,42 +3,37 @@
  * @param {number} target
  * @return {boolean}
  */
-var search = function (nums, t) {
+var search = function (nums, target) {
   const n = nums.length
   let l = 0,
     r = n - 1
-  // 恢复二段性
   while (l < r && nums[0] == nums[r]) r--
-
-  // 第一次二分，找旋转点
   while (l < r) {
-    const mid = (l + r + 1) >> 1
+    const mid = Math.floor((l + r + 1) / 2)
     if (nums[mid] >= nums[0]) {
       l = mid
     } else {
       r = mid - 1
     }
   }
+
   let idx = n
-  if (nums[r] >= nums[0] && r + 1 < n) idx = r + 1
-
-  // 第二次二分，找目标值
-  let ans = find(nums, 0, idx - 1, t)
+  if (nums[l] >= nums[0] && l + 1 < n) idx = l + 1
+  let ans = find(nums, 0, idx - 1, target)
   if (ans !== -1) return true
-  ans = find(nums, idx, n - 1, t)
-
-  return ans !== -1
+  ans = find(nums, idx, n - 1, target)
+  return ans === -1 ? false : true
 }
 
-function find(nums, l, r, t) {
+function find(arr, l, r, target) {
   while (l < r) {
-    const mid = (l + r) >> 1
-    if (nums[mid] >= t) {
+    const mid = Math.floor((l + r) / 2)
+    if (arr[mid] >= target) {
       r = mid
     } else {
       l = mid + 1
     }
   }
 
-  return nums[r] == t ? r : -1
+  return arr[r] === target ? r : -1
 }
