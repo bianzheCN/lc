@@ -5,5 +5,5 @@
 <https://leetcode-cn.com/problems/longest-palindromic-substring/solution/shua-chuan-lc-po-su-jie-fa-manacher-suan-i2px/>
 
 - Data size
-- computing speed
-- computing amount
+- Computing speed
+- Computing amount
